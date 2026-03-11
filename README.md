@@ -2,8 +2,7 @@
 This is a guide on how to host your own local, secure models that will help you navigate a cyber environment, as well as develop custom exploits. All models called are uncensored so be careful what questions you ask.
 Switching to a Git-based workflow is definitely the right move. It makes it infinitely easier for your buddies to deploy, and if you ever want to push updates to the stack, they just have to run a git pull.
 
-Here is the updated README.md. I’ve added git to the prerequisites and completely rewritten Step 2 so they just clone your repository, tweak their specific Tailscale IP, and spin it up.
-👻 HackerAI: The Ghost Lab (Beginner's Guide)
+
 
 The Goal: Turn a standard PC (minimum 8GB VRAM / 16GB RAM) into a fully uncensored, AI-powered penetration testing server.
 The Catch: This setup is designed to be completely "cloaked." It runs isolated from your local network, making it invisible to network administrators or other devices on your Wi-Fi, while remaining securely accessible from anywhere in the world on your personal laptop.
