@@ -1,5 +1,10 @@
 # HackAi
 This is a guide on how to host your own local, secure models that will help you navigate a cyber environment, as well as develop custom exploits. All models called are uncensored so be careful what questions you ask.
+Switching to a Git-based workflow is definitely the right move. It makes it infinitely easier for your buddies to deploy, and if you ever want to push updates to the stack, they just have to run a git pull.
+
+Here is the updated README.md. I’ve added git to the prerequisites and completely rewritten Step 2 so they just clone your repository, tweak their specific Tailscale IP, and spin it up.
+
+(Note: Just remember to swap out https://github.com/YourUsername/HackerAI-Lab.git in Step 2 with your actual repository URL before you share it!)
 👻 HackerAI: The Ghost Lab (Beginner's Guide)
 
 The Goal: Turn a standard PC (minimum 8GB VRAM / 16GB RAM) into a fully uncensored, AI-powered penetration testing server.
@@ -8,7 +13,7 @@ The Catch: This setup is designed to be completely "cloaked." It runs isolated f
 
     A Host Machine (The Server): A PC running Linux (Ubuntu/Debian recommended) with an NVIDIA GPU.
 
-    Docker & NVIDIA Container Toolkit: You must have Docker installed, and the NVIDIA toolkit configured so Docker can interface with your GPU. (Google: "Install NVIDIA Container Toolkit Ubuntu")
+    Git, Docker & NVIDIA Container Toolkit: You must have git and Docker installed, and the NVIDIA toolkit configured so Docker can interface with your GPU. (Google: "Install NVIDIA Container Toolkit Ubuntu")
 
     Tailscale: A free Tailscale account to create your encrypted private network.
 
@@ -24,53 +29,27 @@ We use a private mesh VPN to ensure your AI dashboard is completely isolated fro
 
         Write this IP down. You need it for Step 2.
 
-Step 2: The Infrastructure (Docker Compose)
+Step 2: The Infrastructure (Clone & Deploy)
 
-We use Docker to deploy the AI engine (Ollama) and the interface (Open WebUI) simultaneously.
+We use Docker to deploy the AI engine (Ollama) and the interface (Open WebUI) simultaneously. Since the infrastructure is already coded, you just need to pull the repository and point it to your secure tunnel.
 
-    Create a folder on your server: mkdir hackerai && cd hackerai
+    Clone the Lab: Pull this repository to your server and enter the directory:
+    Bash
 
-    Create a file named docker-compose.yml and paste the code below.
+    git clone https://github.com/YourUsername/HackerAI-Lab.git
+    cd HackerAI-Lab
 
-    CRITICAL: Change YOUR_TAILSCALE_IP to the IP you copied in Step 1. This ensures your AI only listens on the secure tunnel, making it a ghost to anyone else on the local network.
+    Cloak the Port: Open the docker-compose.yml file using a text editor like nano:
+    Bash
 
-YAML
+    nano docker-compose.yml
 
-services:
-  ollama:
-    image: ollama/ollama:latest
-    container_name: ollama
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
-    volumes:
-      - ollama_data:/root/.ollama
-    restart: unless-stopped
+    Find the ports section under open-webui. CRITICALLY, change YOUR_TAILSCALE_IP to the 100.x.x.x address you copied in Step 1. This ensures your AI only listens on the secure tunnel, making it a ghost to anyone else on the local network. Save and exit (Ctrl+O, Enter, Ctrl+X).
 
-  open-webui:
-    image: ghcr.io/open-webui/open-webui:main
-    container_name: open-webui
-    depends_on:
-      - ollama
-    ports:
-      # REPLACE WITH YOUR SERVER'S TAILSCALE IP!
-      - "YOUR_TAILSCALE_IP:3000:8080" 
-    environment:
-      - 'OLLAMA_BASE_URL=http://ollama:11434'
-      - 'WEBUI_SECRET_KEY=hacker_secret_1337'
-    volumes:
-      - open-webui_data:/app/backend/data
-    restart: unless-stopped
+    Deploy: Spin up the stack:
+    Bash
 
-volumes:
-  ollama_data:
-  open-webui_data:
-
-    Deploy the stack: sudo docker compose up -d
+    sudo docker compose up -d
 
 Step 3: Pulling the Uncensored Brains
 
