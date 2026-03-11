@@ -34,10 +34,6 @@ Step 2: The Infrastructure (Clone & Deploy)
 We use Docker to deploy the AI engine (Ollama) and the interface (Open WebUI) simultaneously. Since the infrastructure is already coded, you just need to pull the repository and point it to your secure tunnel.
 
     Clone the Lab: Pull this repository to your server and enter the directory:
-    Bash
-
-    git clone https://github.com/YourUsername/HackerAI-Lab.git
-    cd HackerAI-Lab
 
     Cloak the Port: Open the docker-compose.yml file using a text editor like nano:
     Bash
