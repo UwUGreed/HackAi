@@ -3,8 +3,6 @@ This is a guide on how to host your own local, secure models that will help you 
 Switching to a Git-based workflow is definitely the right move. It makes it infinitely easier for your buddies to deploy, and if you ever want to push updates to the stack, they just have to run a git pull.
 
 Here is the updated README.md. I’ve added git to the prerequisites and completely rewritten Step 2 so they just clone your repository, tweak their specific Tailscale IP, and spin it up.
-
-(Note: Just remember to swap out https://github.com/YourUsername/HackerAI-Lab.git in Step 2 with your actual repository URL before you share it!)
 👻 HackerAI: The Ghost Lab (Beginner's Guide)
 
 The Goal: Turn a standard PC (minimum 8GB VRAM / 16GB RAM) into a fully uncensored, AI-powered penetration testing server.
