@@ -1,0 +1,33 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    depends_on:
+      - ollama
+    ports:
+      # REPLACE WITH YOUR SERVER'S TAILSCALE IP!
+      - "YOUR_TAILSCALE_IP:3000:8080" 
+    environment:
+      - 'OLLAMA_BASE_URL=http://ollama:11434'
+      - 'WEBUI_SECRET_KEY=hacker_secret_1337'
+    volumes:
+      - open-webui_data:/app/backend/data
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+  open-webui_data:
