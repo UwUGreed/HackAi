@@ -1,6 +1,5 @@
 # HackAi
 This is a guide on how to host your own local, secure models that will help you navigate a cyber environment, as well as develop custom exploits. All models called are uncensored so be careful what questions you ask.
-Switching to a Git-based workflow is definitely the right move. It makes it infinitely easier for your buddies to deploy, and if you ever want to push updates to the stack, they just have to run a git pull.
 
 
 
